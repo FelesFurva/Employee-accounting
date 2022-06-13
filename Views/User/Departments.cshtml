@@ -1,0 +1,14 @@
+﻿@using Employee_accounting.Models
+@model List<UserModel>
+
+<table class="table">
+    <tr class="firstRow">
+        <th>Name</th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Department</td>
+        </tr>
+    }
+</table>

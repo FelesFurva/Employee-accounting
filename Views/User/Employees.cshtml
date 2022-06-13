@@ -1,0 +1,38 @@
+﻿@using Employee_accounting.Models
+@model List<UserModel>
+
+<table class="table">
+    <tr class="firstRow">
+        <th>
+            @Html.ActionLink("Id", "Employees", new {sortOrder = ViewBag.IDSortParm , orderBy = ViewBag.OrderBy, pSortOn = ViewBag.SortOn })
+        </th>
+        <th>Name</th>
+        <th>
+            @Html.ActionLink("Surname", "Employees", new {sortOrder = ViewBag.NameSortParm , orderBy = ViewBag.OrderBy, pSortOn = ViewBag.SortOn })
+        </th>
+        <th>Year of Birth</th>
+        <th>Position</th>
+        <th>
+            @Html.ActionLink("Department", "Employees", new {sortOrder = ViewBag.DepartmentSortParm , orderBy = ViewBag.OrderBy, pSortOn = ViewBag.SortOn })
+        </th>
+    </tr>
+    @foreach (var user in Model)
+    {
+        <tr>
+            <td>@user.Id</td>
+            <td>@user.Name</td>
+            <td>@user.Surname</td>
+            <td>@user.Year_of_Birth</td>
+            <td>@user.Position</td>
+            <td>@user.Department</td>
+        </tr>
+    }
+
+    <tr>
+        <td><button class="btn btn-dark btn-sm"><a class="nav-link text-white" asp-area="" asp-controller="User" asp-action="AddUser">Add</a></button></td>
+    </tr>
+    <tr>
+
+    </tr>
+
+</table>
