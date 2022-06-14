@@ -4,16 +4,16 @@
 <table class="table">
     <tr class="firstRow">
         <th>
-            @Html.ActionLink("Id", "Employees", new {sortOrder = ViewBag.IDSortParm , orderBy = ViewBag.OrderBy, pSortOn = ViewBag.SortOn })
+            <a asp-area="" asp-contoller="User" asp-controller="User" asp-action="Employees" asp-route-sortOrder="id_desc">ID</a>
         </th>
         <th>Name</th>
         <th>
-            @Html.ActionLink("Surname", "Employees", new {sortOrder = ViewBag.NameSortParm , orderBy = ViewBag.OrderBy, pSortOn = ViewBag.SortOn })
+            <a asp-area="" asp-contoller="User" asp-controller="User" asp-action="Employees" asp-route-sortOrder="name_desc">Surname</a>
         </th>
         <th>Year of Birth</th>
         <th>Position</th>
         <th>
-            @Html.ActionLink("Department", "Employees", new {sortOrder = ViewBag.DepartmentSortParm , orderBy = ViewBag.OrderBy, pSortOn = ViewBag.SortOn })
+            <a asp-area="" asp-contoller="User" asp-controller="User" asp-action="Employees" asp-route-sortOrder="dep_desc">Department</a>
         </th>
     </tr>
     @foreach (var user in Model)

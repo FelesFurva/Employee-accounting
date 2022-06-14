@@ -30,9 +30,6 @@ namespace Employee_accounting.Controllers
         
         public IActionResult Employees(string sortOrder)
         {
-            ViewBag.IDSortParm = String.IsNullOrEmpty(sortOrder) ? "id_desc" : "";
-            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-            ViewBag.DepartmentSortParm = String.IsNullOrEmpty(sortOrder) ? "dep_desc" : "";
             var user = from u in userModels select u;
             switch(sortOrder)
             {
