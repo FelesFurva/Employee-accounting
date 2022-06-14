@@ -5,54 +5,54 @@ namespace Employee_accounting.Controllers
 {
     public class UserController : Controller
     {
-        public static List<UserModel> userModels = Database.userModels.OrderBy(x => x.Id).ToList();
+        public static List<UserModel> userModels = Database.userModels.OrderBy(e => e.Id).ToList();
 
         [HttpGet]
-        public IActionResult AddUser()
+        public IActionResult AddEmployee()
         {
-            var user = new UserModel
+            var employee = new UserModel
             {
                Id = userModels.Count + 1
             };
-            return View(user);
+            return View(employee);
         }
         
         [HttpPost]
-        public IActionResult AddUser(UserModel user)
+        public IActionResult AddEmployee(UserModel employee)
         {
             if (ModelState.IsValid)
             {
-                userModels.Add(user);
+                userModels.Add(employee);
                 return RedirectToAction("Employees");
             }
-            return View(user);
+            return View(employee);
         }
         
         public IActionResult Employees(string sortOrder)
         {
-            var user = from u in userModels select u;
+            var employee = from e in userModels select e;
             switch(sortOrder)
             {
                 case "name_desc":
-                    user = userModels.OrderBy(u => u.Surname);
+                    employee = userModels.OrderBy(u => u.Surname);
                     break;
                 case "dep_desc":
-                    user = userModels.OrderBy(u => u.Department);
+                    employee = userModels.OrderBy(u => u.Department);
                     break;
                 case "id_desc":
-                    user = userModels.OrderBy(u => u.Id);
+                    employee = userModels.OrderBy(u => u.Id);
                     break;
                 default:
-                    user = userModels.OrderBy(u => u.Id);
+                    employee = userModels.OrderBy(u => u.Id);
                     break;
             }
-            return View(user.ToList());
+            return View(employee.ToList());
         }
 
 
         public IActionResult Departments()
         {
-            var onlydepartments = userModels.DistinctBy(u => u.Department).ToList();
+            var onlydepartments = userModels.DistinctBy(e => e.Department).ToList();
             return View(onlydepartments);
         }
 
