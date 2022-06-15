@@ -5,14 +5,19 @@ namespace Employee_accounting.Controllers
 {
     public class UserController : Controller
     {
-        public static List<UserModel> userModels = Database.userModels.OrderBy(e => e.Id).ToList();
+        private readonly Database database;
+
+        public UserController(Database database) // getting database from containers
+        {
+            this.database = database;
+        }
 
         [HttpGet]
         public IActionResult AddEmployee()
         {
             var employee = new UserModel
             {
-               Id = userModels.Count + 1
+               Id = database.Users.Count + 1
             };
             return View(employee);
         }
@@ -22,7 +27,7 @@ namespace Employee_accounting.Controllers
         {
             if (ModelState.IsValid)
             {
-                userModels.Add(employee);
+                database.Users.Add(employee);
                 return RedirectToAction("Employees");
             }
             return View(employee);
@@ -30,29 +35,18 @@ namespace Employee_accounting.Controllers
         
         public IActionResult Employees(string sortOrder)
         {
-            var employee = from e in userModels select e;
-            switch(sortOrder)
+            return View(sortOrder switch
             {
-                case "name_desc":
-                    employee = userModels.OrderBy(u => u.Surname);
-                    break;
-                case "dep_desc":
-                    employee = userModels.OrderBy(u => u.Department);
-                    break;
-                case "id_desc":
-                    employee = userModels.OrderBy(u => u.Id);
-                    break;
-                default:
-                    employee = userModels.OrderBy(u => u.Id);
-                    break;
-            }
-            return View(employee.ToList());
+                "name_desc" => database.Users.OrderBy(e => e.Surname),
+                "dep_desc"  => database.Users.OrderBy(e => e.Department),
+                "id_desc"   => database.Users.OrderBy(e => e.Id),
+                _           => database.Users.OrderBy(e => e.Id),
+            });
         }
-
 
         public IActionResult Departments()
         {
-            var onlydepartments = userModels.DistinctBy(e => e.Department).ToList();
+            var onlydepartments = database.Users.DistinctBy(e => e.Department);
             return View(onlydepartments);
         }
 
